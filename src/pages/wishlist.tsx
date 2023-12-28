@@ -1,4 +1,5 @@
 // Wishlist.tsx
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 export interface IWishlist {
@@ -21,6 +22,8 @@ const planetImage = [
 
 const Wishlist: React.FC<IWishlist> = () => {
   const [wishlist, setWishlist] = useState<IWishlist[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2; // Adjust the number of items to display per page
 
   let items: IWishlist[] = [];
 
@@ -31,18 +34,54 @@ const Wishlist: React.FC<IWishlist> = () => {
   useEffect(() => {
     setWishlist(items);
   }, []);
+
+  // Calculate the index range for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Filter the items to display based on the current page
+  const displayedItems = wishlist.slice(startIndex, endIndex);
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/`);
+  };
+
   return (
-    <div>
-      <h2>Wishlist</h2>
-      {wishlist.map((data, index) => (
-        <div>
-          <img
-            src={planetImage[data.id - 1]}
-            alt=""
-          />
-          <p>{data.name}</p>
+    <div className="text-center">
+      <p className="m-8 cursor-pointer text-2xl" onClick={handleClick}>
+        Back
+      </p>
+      <h2 className="text-4xl font-bold mb-10">Wishlist</h2>
+      <div className="flex justify-center mt-10">
+        <div className="grid grid-cols-2 gap-8">
+          {displayedItems.map((data, index) => (
+            <div key={index} className="relative h-40 w-40 overflow-hidden rounded-lg shadow-md">
+              <img src={planetImage[data.id - 1]} alt="" className="object-cover w-full h-full" />
+              <p className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white py-2 text-center">
+                {data.name}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      <div className="flex justify-center mt-10 space-x-4">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50"
+        >
+          Previous Page
+        </button>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={endIndex >= wishlist.length}
+          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50"
+        >
+          Next Page
+        </button>
+      </div>
     </div>
   );
 };

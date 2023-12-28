@@ -126,6 +126,7 @@ function Post() {
 
         // Update local storage
         localStorage.setItem('wishlist', JSON.stringify(items));
+        alert(`Added ${name} to the wishlist!`);
 
         console.log(items);
       } else {
@@ -135,8 +136,15 @@ function Post() {
     }
   }
 
+  const handleClick = () => {
+    router.push(`/`);
+  };
+
   return (
-    <div className="detail flex-1 ">
+    <div className="detail flex-1">
+      <p className="m-8 cursor-pointer text-2xl" onClick={handleClick}>
+        Back
+      </p>
       <div className="flex justify-center">
         <img
           src={planetImage[imageIndex]}
@@ -148,39 +156,44 @@ function Post() {
       </div>
 
       <div className="flex m-10 mx-72 text-2xl">
-        <div className='grow'>
-          <h1>Planet: {planet?.name}</h1>
-          <h1>Rotation Period: {planet?.rotation_period}</h1>
-          <h1>Orbital Period: {planet?.orbital_period}</h1>
-          <h1>Diameter: {planet?.diameter}</h1>
-          <h1>Climate: {planet?.climate}</h1>
-          <h1>Gravity: {planet?.gravity}</h1>
-          <h1>Terrain: {planet?.terrain}</h1>
-          <h1>Surface Water: {planet?.surface_water}</h1>
-          <h1>Population: {planet?.population}</h1>
+        <div className="grow">
+          <h1 className="mb-4 text-4xl font-bold">Planet: {planet?.name}</h1>
+          <ul className="list-disc pl-6">
+            <li>Rotation Period: {planet?.rotation_period}</li>
+            <li>Orbital Period: {planet?.orbital_period}</li>
+            <li>Diameter: {planet?.diameter}</li>
+            <li>Climate: {planet?.climate}</li>
+            <li>Gravity: {planet?.gravity}</li>
+            <li>Terrain: {planet?.terrain}</li>
+            <li>Surface Water: {planet?.surface_water}</li>
+            <li>Population: {planet?.population}</li>
+          </ul>
         </div>
-        <div className=''>
-          <h2>Residents:</h2>
-          <ul>
+        <div className="ml-8">
+          <h2 className="mb-2 text-3xl font-bold">Residents:</h2>
+          <ul className="list-disc pl-6">
             {residents.map((resident) => (
               <li key={resident.name}>- {resident.name}</li>
             ))}
           </ul>
 
-          <h2>Films:</h2>
-          <ul>
+          <h2 className="mt-4 mb-2 text-3xl font-bold">Films:</h2>
+          <ul className="list-disc pl-6">
             {films.map((film) => (
               <li key={film.title}>- {film.title}</li>
             ))}
           </ul>
-          <h1>Created: {formatDate(planet?.created)}</h1>
+          <h1 className="mt-4">Created: {formatDate(planet?.created)}</h1>
           <h1>Edited: {formatDate(planet?.edited)}</h1>
         </div>
       </div>
-      <div className='flex align-middle justify-center'>
-          <button className=' border w-80 border-3 rounded-xl bg-blue-400 hover:bg-slate-400' onClick={() => postWishlist(parseInt(slug as string), planet?.name as string)}>
-            <p className='p-5 '>Add To Wishlist</p>
-          </button>
+      <div className="flex justify-center mt-8">
+        <button
+          className="border w-80 border-3 rounded-xl bg-blue-400 hover:bg-slate-400"
+          onClick={() => postWishlist(parseInt(slug as string), planet?.name as string)}
+        >
+          <p className="p-5">Add To Wishlist</p>
+        </button>
       </div>
       <br />
     </div>

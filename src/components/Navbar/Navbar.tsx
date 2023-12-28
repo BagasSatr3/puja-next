@@ -1,5 +1,6 @@
 // components/Navbar.tsx
 
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const Navbar: React.FC = () => {
@@ -24,12 +25,20 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/wishlist`);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white-800 p-4 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <img src="/logo.png" alt="Logo" className="w-20 h-20 mr-2 object-cover" />
           <span className="text-white text-lg font-semibold">The Planets</span>
+      <span onClick={handleClick} className='cursor-pointer text-white text-lg font-semibold ml-12'>Wishlist</span>
+
         </div>
 
         <div className="hidden md:flex space-x-4">

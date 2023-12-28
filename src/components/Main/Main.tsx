@@ -55,74 +55,57 @@ const Main: React.FC = () => {
 
   return (
     <div className="container mx-auto mt-8 p-5 flex flex-col items-center">
-      <div className="flex items-center mb-4">
-        {/* Content above the planets */}
-      </div>
-  
+      <div className="flex items-center mb-4">{/* Content above the planets */}</div>
+
       {planets.length === 0 ? (
         <p>Loading...</p>
       ) : (
         <div className="main justify-center align-items-center flex flex-col items-center">
-         <div className="parallax-container">
-    <img
-      src="/astronot.png"
-      alt="Parallax Background"
-      className="parallax-image"
-    />
-    <div className="parallax-text font-bold"
-     style={{
-      textShadow: '0 0 10px rgba(173, 216, 230, 0.8)',
-      fontSize: "100px",
-      display:'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-       // Adjust the color and intensity as needed
-    }}
-    >Welcome to our galaxy</div>
-  </div>
+          <div className="parallax-container">
+            <img src="/astronot.png" alt="Parallax Background" className="parallax-image" />
+            <div
+              className="parallax-text font-bold"
+              style={{
+                textShadow: '0 0 10px rgba(173, 216, 230, 0.8)',
+                fontSize: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+                // Adjust the color and intensity as needed
+              }}
+            >
+              Welcome to our galaxy
+            </div>
+          </div>
 
           {currentPlanets.map((planet, index) => (
             <div
-            key={planet.name}
-            className="md:col-span-1 cursor-pointer text-center mb-8 mt-8"
-            onClick={() => handleClick(index + 1)}
-          >
-            <h2 className=" font-bold mb-4 text-white leading-tight  mb-10"
-             style={{
-              textShadow: '0 0 10px rgba(173, 216, 230, 0.8)',
-              fontSize: "50px", // Adjust the color and intensity as needed
-            }}>
-              {planet.name}
-            </h2>
-            <img
-              src={planetImage[index]}
-              alt={planet.name}
-              width={600}
-              height={600}
-              className='object-cover'
-            />
-            {/* Additional content, if any */}
-          </div>
-          
+              key={planet.name}
+              className="md:col-span-1 cursor-pointer text-center mb-8 mt-8"
+              onClick={() => handleClick(index + 1)}
+            >
+              <h2
+                className=" font-bold mb-4 text-white leading-tight  mb-10"
+                style={{
+                  textShadow: '0 0 10px rgba(173, 216, 230, 0.8)',
+                  fontSize: '50px' // Adjust the color and intensity as needed
+                }}
+              >
+                {planet.name}
+              </h2>
+              <img
+                src={planetImage[index]}
+                alt={planet.name}
+                width={600}
+                height={600}
+                className="object-cover"
+              />
+              {/* Additional content, if any */}
+            </div>
           ))}
         </div>
       )}
-  
-      {/* Pagination */}
-      {/* <div className="flex justify-center mt-8">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={`mx-2 p-2 ${
-              currentPage === index + 1 ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div> */}
     </div>
   );
-          }  
+};
 export default Main;
